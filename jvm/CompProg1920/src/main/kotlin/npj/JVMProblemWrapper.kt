@@ -57,13 +57,14 @@ object JVMProblemWrapper {
     sealed class Problem {
         abstract fun createPaths(): Pair<String, String>
         abstract fun printHelp()
+
+        override fun toString(): String {
+            return createPaths().first + "." + createPaths().second
+        }
+
         class NCNA18 private constructor(private val letter: String): Problem() {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2018", "Problem$letter")
-            }
-
-            override fun toString(): String {
-                return "NCNA18.Problem$letter"
             }
 
             override fun printHelp() {
@@ -99,10 +100,6 @@ object JVMProblemWrapper {
         class NCNA17 private constructor(private val letter: String): Problem() {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2017", "Problem$letter")
-            }
-
-            override fun toString(): String {
-                return "NCNA17.Problem$letter"
             }
 
             override fun printHelp() {
@@ -145,10 +142,6 @@ object JVMProblemWrapper {
 
             override fun createPaths(): Pair<String, String> {
                 return Pair("CSAcademy", problemName)
-            }
-
-            override fun toString(): String {
-                return "CSAcademy$problemName"
             }
 
             companion object {

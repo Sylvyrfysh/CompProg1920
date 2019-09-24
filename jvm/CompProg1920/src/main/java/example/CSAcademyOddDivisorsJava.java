@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CSAcademyOddDivisorsJava {
+    //loopOver takes the first argument of type Problem. You can browse all supported problems by using autocompletion on JVMProblemWrapper.Problem
+    //The second argument is a method, or class that extends SolveWrapper, that takes a String input and returns a String output.
     public static void main(String[] args) {
         JVMProblemWrapper.loopOver(JVMProblemWrapper.Problem.CSAcademy.OddDivisors, CSAcademyOddDivisorsJava::wrapper);
     }
