@@ -1,0 +1,1 @@
+java -cp resourcecopier.main.jar com.nicholaspjohnson.resourcecopier.Main
