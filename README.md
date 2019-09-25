@@ -22,3 +22,10 @@ Coming soon...
 - [ ] Add C support
 - [ ] Add Create-Your-Own-Problem instructions
 - [ ] Add Create-Your-Own-Problem PR template
+
+## Want to add something?
+Go ahead and create a PR! Whether it's new language support, a new problem set, same language with a new IDE, anything, create a PR! Make sure you:
+- Allow us to push to your branch. Without this, we can't make changes we need to.
+- State the purpose clearly and have a description. This lets us assess what your change intends to do.
+- State anything you need us to do. Adding a new language/IDE might require extracting resources to a new place. We'll do our part to make your PR work.
+
