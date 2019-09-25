@@ -2,6 +2,7 @@ package npj
 
 import java.nio.file.Files
 import java.nio.file.Paths
+import kotlin.math.abs
 import kotlin.streams.toList
 
 object JVMProblemWrapper {
@@ -37,7 +38,7 @@ object JVMProblemWrapper {
             val problemTxt = Files.readString(inPath).trim()
             val problemAns = Files.readAllLines(problemPath.resolve("$i.ans")).map(String::trim)
             val receivedAns = block(problemTxt).trim().split("\n").map(String::trim)
-            if(receivedAns == problemAns) {
+            if(p.checkFunction(problemAns, receivedAns)) {
                 ++passed
             }else {
                 println("""
@@ -54,7 +55,7 @@ object JVMProblemWrapper {
         println("$p: PASS $passed / ${files.size}")
     }
 
-    sealed class Problem {
+    sealed class Problem(val checkFunction: ((List<String>, List<String>) -> Boolean) = { one, two -> one == two}) {
         abstract fun createPaths(): Pair<String, String>
         abstract fun printHelp()
 
@@ -62,7 +63,7 @@ object JVMProblemWrapper {
             return createPaths().first + "." + createPaths().second
         }
 
-        class NCNA18 private constructor(private val letter: String): Problem() {
+        class NCNA18 private constructor(private val letter: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2018", "Problem$letter")
             }
@@ -97,7 +98,7 @@ object JVMProblemWrapper {
             }
         }
 
-        class NCNA17 private constructor(private val letter: String): Problem() {
+        class NCNA17 private constructor(private val letter: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2017", "Problem$letter")
             }
@@ -126,13 +127,28 @@ object JVMProblemWrapper {
                 @JvmField
                 val ProblemH = NCNA17("H")
                 @JvmField
-                val ProblemI = NCNA17("I")
+                val ProblemI = NCNA17("I") { one, two ->
+                    val m1 = one.filter(String::isNotEmpty).map(String::toDouble)
+                    val m2 = two.filter(String::isNotEmpty).map(String::toDouble)
+
+                    if(m1.size != m2.size) {
+                        return@NCNA17 false
+                    }
+
+                    for(i in m1.indices) {
+                        if(abs(m1[i] - m2[i]) > 10e-6) {
+                            return@NCNA17 false
+                        }
+                    }
+
+                    return@NCNA17 true
+                }
                 @JvmField
                 val ProblemJ = NCNA17("J")
             }
         }
 
-        class CSAcademy private constructor(private val problemName: String, private val url: String): Problem() {
+        class CSAcademy private constructor(private val problemName: String, private val url: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
             override fun printHelp() {
                 println("""
                     This problem is at the URL $url
