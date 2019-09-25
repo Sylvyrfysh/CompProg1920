@@ -1,6 +1,9 @@
 # CompProg1920
 Competitive Programming '19-'20
 
+# Competitive Programming Workshop
+Please sign up here: [Google Forms](https://forms.gle/nvYNCUMaHifznWsu6)
+
 ## On Pull
 In order to properly set up all of the resources, you must run `resources.bat`. This will set up all the resources in the location for each programming language.
 
