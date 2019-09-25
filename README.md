@@ -11,7 +11,7 @@ In IntelliJ, go to `File > Open`. Navigate to the root folder, go to the jvm fol
 
 ## PyCharm Setup for Python
 In PyCharm, go to `File > Open`. Navigate to the root folder, go to the python folder, and select CompProg1920 from it. You might need to set the location of your python installation in `File > Settings > Project: CompProg1920 > Project Interpreter`. Example is at
-- [Python](python/CompProg1920/example.py)
+- [Python](python/CompProg1920/example/example.py)
 
 ## CLion Setup for C/C++
 Coming soon...
@@ -28,4 +28,3 @@ Go ahead and create a PR! Whether it's new language support, a new problem set, 
 - Allow us to push to your branch. Without this, we can't make changes we need to.
 - State the purpose clearly and have a description. This lets us assess what your change intends to do.
 - State anything you need us to do. Adding a new language/IDE might require extracting resources to a new place. We'll do our part to make your PR work.
-

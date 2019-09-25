@@ -4,6 +4,7 @@ from npj.ProblemSets import Problem
 
 resource_path = Path('resources')
 
+
 def get_valid_problem_names(paths):
     returns = []
     path = resource_path / paths[0] / paths[1]
@@ -11,6 +12,7 @@ def get_valid_problem_names(paths):
         if entry.name[entry.name.index('.') + 1:] == 'in':
             returns.append(entry.name[:entry.name.index('.')])
     return path, returns
+
 
 def loop_problems(problem, method):
     if not isinstance(problem, Problem):
@@ -26,13 +28,12 @@ def loop_problems(problem, method):
         if res == ans_txt:
             good += 1
         else:
-            print("""
-                    |============
-                    |%s: FAIL!!! Expected
-                    |%s
-                    |---
-                    |Got
-                    |---
-                    |%s
-                    |============""" % (file_name, ans_txt, res))
+            print("""============
+%s: FAIL!!! Expected
+%s
+---
+Got
+---
+%s
+============""" % (file_name, ans_txt, res))
     print("%s: PASS %d / %d" % (problem, good, len(entries)))

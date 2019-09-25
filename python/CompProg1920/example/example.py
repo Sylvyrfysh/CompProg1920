@@ -1,5 +1,4 @@
 from npj import Python3Wrapper
-from npj import ProblemSets
 from npj.ProblemSets import Problems
 
 
@@ -15,4 +14,5 @@ def tester(s):
     return str(passes)
 
 
+# More problems can be found by autocompleting Problems and the classes it contains
 Python3Wrapper.loop_problems(Problems.CSAcademy.odd_divisors, tester)
