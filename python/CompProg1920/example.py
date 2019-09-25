@@ -1,5 +1,6 @@
 from npj import Python3Wrapper
 from npj import ProblemSets
+from npj.ProblemSets import Problems
 
 
 def tester(s):
@@ -14,4 +15,4 @@ def tester(s):
     return str(passes)
 
 
-Python3Wrapper.loop_problems(ProblemSets.csacademy_odddivisors, tester)
+Python3Wrapper.loop_problems(Problems.CSAcademy.odd_divisors, tester)

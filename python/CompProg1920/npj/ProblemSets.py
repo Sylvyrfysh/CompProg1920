@@ -3,7 +3,7 @@ class Problem:
         raise NotImplementedError('You must pick a subclass of problem like NCNA18(\'A\') !')
 
     def __str__(self):
-        return self.get_paths()[0] + self.get_paths()[1]
+        return self.get_paths()[0] + "." + self.get_paths()[1]
 
 
 class NCNA17(Problem):
@@ -16,18 +16,6 @@ class NCNA17(Problem):
             raise NameError('NCNA17 Only has problems A through J!')
 
 
-ncna17_a = NCNA17('A')
-ncna17_b = NCNA17('B')
-ncna17_c = NCNA17('C')
-ncna17_d = NCNA17('D')
-ncna17_e = NCNA17('E')
-ncna17_f = NCNA17('F')
-ncna17_g = NCNA17('G')
-ncna17_h = NCNA17('H')
-ncna17_i = NCNA17('I')
-ncna17_j = NCNA17('J')
-
-
 class NCNA18(Problem):
     def get_paths(self):
         return 'NCNA2018', 'Problem' + self.letter
@@ -38,18 +26,6 @@ class NCNA18(Problem):
             raise NameError('NCNA18 Only has problems A through J!')
 
 
-ncna18_a = NCNA18('A')
-ncna18_b = NCNA18('B')
-ncna18_c = NCNA18('C')
-ncna18_d = NCNA18('D')
-ncna18_e = NCNA18('E')
-ncna18_f = NCNA18('F')
-ncna18_g = NCNA18('G')
-ncna18_h = NCNA18('H')
-ncna18_i = NCNA18('I')
-ncna18_j = NCNA18('J')
-
-
 class CSAcademy(Problem):
     def get_paths(self):
         return 'CSAcademy', self.name
@@ -58,5 +34,31 @@ class CSAcademy(Problem):
         self.name = name
 
 
-csacademy_bubblesloop = CSAcademy('BubblesLoop')
-csacademy_odddivisors = CSAcademy('OddDivisors')
+class Problems:
+    class NCNA17:
+        a = NCNA17('a')
+        b = NCNA17('b')
+        c = NCNA17('c')
+        d = NCNA17('d')
+        e = NCNA17('e')
+        f = NCNA17('f')
+        g = NCNA17('g')
+        h = NCNA17('h')
+        i = NCNA17('i')
+        j = NCNA17('j')
+
+    class NCNA18:
+        a = NCNA18('a')
+        b = NCNA18('b')
+        c = NCNA18('c')
+        d = NCNA18('d')
+        e = NCNA18('e')
+        f = NCNA18('f')
+        g = NCNA18('g')
+        h = NCNA18('h')
+        i = NCNA18('i')
+        j = NCNA18('j')
+
+    class CSAcademy:
+        odd_divisors = CSAcademy('OddDivisors')
+        bubbles_loop = CSAcademy('BubblesLoop')
