@@ -30,10 +30,10 @@ Go ahead and create a PR! Whether it's new language support, a new problem set, 
 - State anything you need us to do. Adding a new language/IDE might require extracting resources to a new place. We'll do our part to make your PR work.
 
 # Current Tentative Schedule / Important Dates
-| Date/Time    | Location | Together                          | Advanced                                              | Beginner                                        |
-| ------------ | -------- | --------------------------------- | ----------------------------------------------------- | ----------------------------------------------- |
-| 9/25         | DH240    | Intro to the club and tool setup  | Working in groups, basics review, approach discussion | Basics of Competitive Programming and Designing |
-| 10/2         | DH240    |                                   |                                                       | Data Structures and their uses                  |
-| 10/9         | DH240    |                                   |                                                       | Recursion and rules-based solutions             |
-| 10/16        | DH240    | Special Guest Alumni Connor Hibbs | IEEEXtreme final preparations                         | Group problem solving                           | 
-| 10/18, 10/19 | DH TBD   | IEEEXtreme Competition!           | IEEEXtreme Competition!                               | IEEEXtreme Competition!                         |
+| Date/Time    | Location | Together                          | Advanced                                               | Beginner                                        |
+| ------------ | -------- | --------------------------------- | ------------------------------------------------------ | ----------------------------------------------- |
+| 9/25 5:00    | DH343    | Intro to the club and tool setup  | Working in groups, basics review, approach discussion  | Basics of Competitive Programming and Designing |
+| 10/2 5:00    | DH343    |                                   | Problems in rules-based solving, final group selection | Data Structures and their uses                  |
+| 10/9 5:00    | DH343    |                                   | Selected problems, mock group competition              | Recursion and rules-based solutions             |
+| 10/16 *6-8*  | DH310    | Special Guest Alumni Connor Hibbs | IEEEXtreme final preparations                          | Group problem solving                           |
+| 10/18, 10/19 | DH TBD   | IEEEXtreme Competition!           | IEEEXtreme Competition!                                | IEEEXtreme Competition!                         |
