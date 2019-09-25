@@ -55,7 +55,12 @@ object JVMProblemWrapper {
         println("$p: PASS $passed / ${files.size}")
     }
 
-    sealed class Problem(val checkFunction: ((List<String>, List<String>) -> Boolean) = { one, two -> one == two}) {
+    sealed class Problem(private val iCheckFunction: ((List<String>, List<String>) -> Boolean)? = null) {
+        private object DefaultCheckFunction: (List<String>, List<String>) -> Boolean {
+            override fun invoke(p1: List<String>, p2: List<String>): Boolean = p1 == p2
+        }
+        val checkFunction: (List<String>, List<String>) -> Boolean
+            get() = iCheckFunction ?: DefaultCheckFunction
         abstract fun createPaths(): Pair<String, String>
         abstract fun printHelp()
 
@@ -63,7 +68,7 @@ object JVMProblemWrapper {
             return createPaths().first + "." + createPaths().second
         }
 
-        class NCNA18 private constructor(private val letter: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
+        class NCNA18 private constructor(private val letter: String, iCheckFunction: ((List<String>, List<String>) -> Boolean)? = null): Problem(iCheckFunction) {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2018", "Problem$letter")
             }
@@ -98,7 +103,7 @@ object JVMProblemWrapper {
             }
         }
 
-        class NCNA17 private constructor(private val letter: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
+        class NCNA17 private constructor(private val letter: String, iCheckFunction: ((List<String>, List<String>) -> Boolean)? = null): Problem(iCheckFunction) {
             override fun createPaths(): Pair<String, String> {
                 return Pair("NCNA2017", "Problem$letter")
             }
@@ -148,7 +153,7 @@ object JVMProblemWrapper {
             }
         }
 
-        class CSAcademy private constructor(private val problemName: String, private val url: String, checkFunction: (List<String>, List<String>) -> Boolean = { one, two -> one == two}): Problem(checkFunction) {
+        class CSAcademy private constructor(private val problemName: String, private val url: String, iCheckFunction: ((List<String>, List<String>) -> Boolean)? = null): Problem(iCheckFunction) {
             override fun printHelp() {
                 println("""
                     This problem is at the URL $url
