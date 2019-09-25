@@ -5,10 +5,23 @@ Competitive Programming '19-'20
 Please sign up here: [Google Forms](https://forms.gle/nvYNCUMaHifznWsu6)
 
 ## On Pull
-In order to properly set up all of the resources, you must run `resources.bat`. This will set up all the resources in the location for each programming language.
+In order to properly set up all of the resources, you __must__ run `resources.bat`. This will set up all the resources in the location for each programming language.
 
 ## IntelliJ Setup for Java and Kotlin
-In IntelliJ, go to `File > Open`. Navigate to the root folder, go to the jvm folder, and select CompProg1920 from it. IntelliJ will set up the Java and Kotlin projects, so you only have to create your own test files! Examples of how to do it are located at
+0. Make sure you have run `resources.bat`!!!
+1. Open IntelliJ
+2. Go to `File > Open`. Go to the cloned directory. __The IntelliJ Project is in the jvm > CompProg1920 Folder. You must select the correct folder.__
+3. Click through the import dialog.
+4. Click on `Event Log` in the lower right hand corner.
+5. Click on `Import Module from Gradle`
+6. Check the `Use auto-import` box, then click OK
+7. Wait for the project to sync. This may take a minute or two!
+8. Open your preferred language example in the project explorer under `src > main > *language* > example`
+9. Click the green run button next to the main function
+10. If you get a module not specified error, change `Use classpath of module` to `CompProg1920.main`
+11. If everything worked, you shold get a message saying that there were 3/3 passes!
+
+Find the examples here:
 - [Java](jvm/CompProg1920/src/main/java/example/CSAcademyOddDivisorsJava.java)
 - [Kotlin](jvm/CompProg1920/src/main/kotlin/example/CSAcademyOddDivisorsKt.kt)
 
