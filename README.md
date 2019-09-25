@@ -34,6 +34,6 @@ Go ahead and create a PR! Whether it's new language support, a new problem set, 
 | ------------ | -------- | --------------------------------- | ----------------------------------------------------- | ----------------------------------------------- |
 | 9/25         | DH240    | Intro to the club and tool setup  | Working in groups, basics review, approach discussion | Basics of Competitive Programming and Designing |
 | 10/2         | DH240    |                                   |                                                       | Data Structures and their uses                  |
-| 10/9         | DH240    |                                   |                                                       | Recursion and first problem                     |
-| 10/16        | DH240    | Special Guest Alumni Connor Hibbs | IEEEXtreme final preparations                         |                                                 |
+| 10/9         | DH240    |                                   |                                                       | Recursion and rules-based solutions             |
+| 10/16        | DH240    | Special Guest Alumni Connor Hibbs | IEEEXtreme final preparations                         | Group problem solving                           | 
 | 10/18, 10/19 | DH TBD   | IEEEXtreme Competition!           | IEEEXtreme Competition!                               | IEEEXtreme Competition!                         |
