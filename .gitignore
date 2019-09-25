@@ -1,7 +1,6 @@
 # Unprocessed resource folder: Send a zip
 resources/
 
-
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 jvm/CompProg1920/.gradle/
 jvm/CompProg1920/build/
@@ -23,6 +22,9 @@ gradle-app.setting
 *.war
 *.ear
 
+# Compiled Python Files:
+*.pyc
+
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
@@ -39,6 +41,7 @@ hs_err_pid*
 
 # Duplicated resources that can be remade on copy
 jvm/CompProg1920/src/main/resources/
+python/CompProg1920/src/main/resources/
 
 # User-specific stuff:
 jvm/CompProg1920/.idea/workspace.xml
@@ -46,6 +49,11 @@ jvm/CompProg1920/.idea/tasks.xml
 jvm/CompProg1920/.idea/dictionaries
 jvm/CompProg1920/.idea/vcs.xml
 jvm/CompProg1920/.idea/jsLibraryMappings.xml
+python/CompProg1920/.idea/workspace.xml
+python/CompProg1920/.idea/tasks.xml
+python/CompProg1920/.idea/dictionaries
+python/CompProg1920/.idea/vcs.xml
+python/CompProg1920/.idea/jsLibraryMappings.xml
 
 # Sensitive or high-churn files:
 jvm/CompProg1920/.idea/dataSources.ids
@@ -54,6 +62,12 @@ jvm/CompProg1920/.idea/dataSources.local.xml
 jvm/CompProg1920/.idea/sqlDataSources.xml
 jvm/CompProg1920/.idea/dynamic.xml
 jvm/CompProg1920/.idea/uiDesigner.xml
+python/CompProg1920/.idea/dataSources.ids
+python/CompProg1920/.idea/dataSources.xml
+python/CompProg1920/.idea/dataSources.local.xml
+jvm/CompProg1920/.idea/sqlDataSources.xml
+python/CompProg1920/.idea/dynamic.xml
+python/CompProg1920/.idea/uiDesigner.xml
 
 # Gradle:
 jvm/CompProg1920/.idea/gradle.xml

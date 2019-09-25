@@ -10,7 +10,15 @@ In IntelliJ, go to `File > Open`. Navigate to the root folder, go to the jvm fol
 - [Kotlin](jvm/CompProg1920/src/main/kotlin/example/CSAcademyOddDivisorsKt.kt)
 
 ## PyCharm Setup for Python
-Coming soon...
+In PyCharm, go to `File > Open`. Navigate to the root folder, go to the python folder, and select CompProg1920 from it. You might need to set the location of your python installation in `File > Settings > Project: CompProg1920 > Project Interpreter`. Example is at
+- [Python](python/CompProg1920/example.py)
 
 ## CLion Setup for C/C++
 Coming soon...
+
+## Repo To-Do List
+- [ ] Add C++ support
+- [x] Add Python 3 support
+- [ ] Add C support
+- [ ] Add Create-Your-Own-Problem instructions
+- [ ] Add Create-Your-Own-Problem PR template
