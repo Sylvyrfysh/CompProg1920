@@ -25,7 +25,7 @@ def loop_problems(problem, method):
         in_txt = prob_path.read_text()
         ans_txt = ans_path.read_text().strip()
         res = method(in_txt).strip()
-        if res == ans_txt:
+        if problem.checker(res, ans_txt):
             good += 1
         else:
             print("""============

@@ -1,3 +1,10 @@
+import math
+
+
+def default_checker(given: str, ans: str):
+    return given == ans
+
+
 class Problem:
     def get_paths(self):
         raise NotImplementedError('You must pick a subclass of problem like Problems.NCNA18.a!')
@@ -7,6 +14,9 @@ class Problem:
 
     def get_help(self):
         return "There is no custom help written for this problem!"
+
+    def __init__(self, checker):
+        self.checker = checker
 
 
 class NCNA(Problem):
@@ -18,7 +28,8 @@ class NCNA(Problem):
     def get_help(self):
         return """This problem set can be found at resources/%s/ProblemListing.pdf""" % self.get_paths()[0]
 
-    def __init__(self, letter: str):
+    def __init__(self, letter: str, checker):
+        super().__init__(checker)
         if len(letter) != 1:
             raise Exception('%s requires one letter problem names!' % self.__class__.__qualname__)
         self.letter = letter.capitalize()
@@ -30,10 +41,16 @@ class NCNA17(NCNA):
     def get_paths(self):
         return 'NCNA2017', 'Problem' + self.letter
 
+    def __init__(self, letter: str, checker=default_checker):
+        super().__init__(letter, checker)
+
 
 class NCNA18(NCNA):
     def get_paths(self):
         return 'NCNA2018', 'Problem' + self.letter
+
+    def __init__(self, letter: str, checker=default_checker):
+        super().__init__(letter, checker)
 
 
 class CSAcademy(Problem):
@@ -43,7 +60,8 @@ class CSAcademy(Problem):
     def get_paths(self):
         return 'CSAcademy', self.name
 
-    def __init__(self, name: str, url: str):
+    def __init__(self, name: str, url: str, checker=default_checker):
+        super().__init__(checker)
         self.name = name
         self.url = url
 
@@ -63,7 +81,22 @@ class Problems:
         f = NCNA17('f')
         g = NCNA17('g')
         h = NCNA17('h')
-        i = NCNA17('i')
+
+        @staticmethod
+        def __ncna17_i_checker(res, ans):
+            res_db = [float(str_part) for str_part in res.split() if str_part.isfloat()]
+            ans_db = [float(str_part) for str_part in ans.split() if str_part.isfloat()]
+
+            if len(res_db) != len(ans_db):
+                return False
+
+            for i in range(len(res_db)):
+                if math.fabs(res_db[i] - ans_db[i]) < 10e-6:
+                    return False
+
+            return True
+
+        i = NCNA17('i', __ncna17_i_checker)
         j = NCNA17('j')
 
     class NCNA18:
