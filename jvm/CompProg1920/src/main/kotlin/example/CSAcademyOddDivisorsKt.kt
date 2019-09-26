@@ -2,7 +2,6 @@ package example
 
 import npj.JVMProblemWrapper
 import npj.JVMProblemWrapper.loopOverLambda
-import java.util.*
 import kotlin.collections.ArrayList
 
 @Suppress("DuplicatedCode")
@@ -15,7 +14,7 @@ object CSAcademyOddDivisorsKt {
         loopOverLambda(JVMProblemWrapper.Problem.CSAcademy.OddDivisors) {  //This lambda will be run for every test case. You just print your result.
             val pms = ArrayList<Int>().apply { addAll(Array(32) { it * it }) }
             var cnt = 0
-            val (start, end) = Scanner(System.`in`).nextLine().split(" ").map(String::toInt)
+            val (start, end) = readLine()!!.split(" ").map(String::toInt)
             for(i in start..end) {
                 if(pms.contains(i)) {
                     ++cnt
