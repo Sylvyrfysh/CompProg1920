@@ -2,6 +2,9 @@ from pathlib import Path
 
 from npj.ProblemSets import Problem
 
+from io import StringIO
+import sys
+
 resource_path = Path('resources')
 
 
@@ -14,9 +17,9 @@ def get_valid_problem_names(paths):
     return path, returns
 
 
-def loop_problems(problem, method):
+def loop_problems(problem: Problem, method):
     if not isinstance(problem, Problem):
-        raise NotImplementedError('Must speficy a problem like `NCNA18(\'A\')`!')
+        raise NotImplementedError('Must specify a problem like `NCNA18(\'A\')`!')
     path, entries = get_valid_problem_names(problem.get_paths())
     good = 0
     for file_name in entries:
@@ -24,7 +27,13 @@ def loop_problems(problem, method):
         ans_path = path / (file_name + '.ans')
         in_txt = prob_path.read_text()
         ans_txt = ans_path.read_text().strip()
-        res = method(in_txt).strip()
+        sys.stdin = StringIO(in_txt)
+        sys.stdout = mystdout = StringIO()
+        method()
+        mystdout.flush()
+        mystdout.seek(0)
+        res = mystdout.read().strip()
+        sys.stdout = sys.__stdout__
         if problem.checker(res, ans_txt):
             good += 1
         else:
