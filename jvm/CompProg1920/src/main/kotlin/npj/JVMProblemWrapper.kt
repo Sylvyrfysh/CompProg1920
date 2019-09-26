@@ -1,7 +1,6 @@
 package npj
 
 import java.io.ByteArrayOutputStream
-import java.io.DataOutputStream
 import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -10,7 +9,7 @@ import kotlin.streams.toList
 import kotlin.system.measureNanoTime
 
 object JVMProblemWrapper {
-    private val baseResourcePath = Paths.get("src", "main", "resources")
+    private val baseResourcePath = Paths.get("..", "..", "resources")
 
     /**
      * This is the interface for the solve method. Each problem will give it a string, and it expects a String in return.

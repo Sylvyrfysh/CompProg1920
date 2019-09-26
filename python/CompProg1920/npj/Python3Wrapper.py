@@ -1,11 +1,8 @@
-from pathlib import Path
-
+from npj import resource_path
 from npj.ProblemSets import Problem
 
 from io import StringIO
 import sys
-
-resource_path = Path('resources')
 
 
 def get_valid_problem_names(paths):
