@@ -1,5 +1,15 @@
 # Week 1
 
+## What Happened?
+1. Tools were installed and explained. Contact Nick Johnson on Slack for help installing the tools.
+2. Went over IEEE example problems. Find them at https://csacademy.com/ieeextreme-practice/tasks/ .
+3. Split into groups and worked on skills for each level.
+
+Examples created:
+- [Height Lineup Java](Main.java)
+- [CSAcademy Bubbles Loop Java](../../jvm/CompProg1920/src/main/java/week1/CSAcademyBubblesLoopJava.java)
+- [CSAcademy Bubbles Loop Kotlin](../../jvm/CompProg1920/src/main/kotlin/week1/CSAcademyBubblesLoop.kt)
+
 ### Plans:
 
 1. Club Intro
