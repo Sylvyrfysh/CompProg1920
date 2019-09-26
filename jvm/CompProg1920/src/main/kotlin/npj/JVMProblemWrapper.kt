@@ -1,22 +1,33 @@
 package npj
 
+import java.io.ByteArrayOutputStream
+import java.io.DataOutputStream
+import java.io.PrintStream
 import java.nio.file.Files
 import java.nio.file.Paths
 import kotlin.math.abs
 import kotlin.streams.toList
+import kotlin.system.measureNanoTime
 
 object JVMProblemWrapper {
     private val baseResourcePath = Paths.get("src", "main", "resources")
 
+    /**
+     * This is the interface for the solve method. Each problem will give it a string, and it expects a String in return.
+     */
     @FunctionalInterface
     interface SolveWrapper {
+        /**
+         *
+         *
+         */
         @Throws(Throwable::class)
-        operator fun invoke(input: String): String
+        operator fun invoke()
     }
 
     @JvmStatic
-    fun loopOverLambda(p: Problem, block: (String) -> String) = loopOver(p, object : SolveWrapper {
-        override fun invoke(input: String) = block(input)
+    fun loopOverLambda(p: Problem, block: () -> Unit) = loopOver(p, object : SolveWrapper {
+        override fun invoke() = block()
     })
 
     @JvmStatic
@@ -32,15 +43,25 @@ object JVMProblemWrapper {
 
         val padLen = files.maxBy { it.length }!!.length
         var passed = 0
+        val buffer = ByteArrayOutputStream()
+        val oldSysOut = System.out
         for(i in files) {
+            System.setOut(PrintStream(buffer))
+            buffer.reset()
             val istr = i.padStart(padLen, '0')
             val inPath = problemPath.resolve("$i.in")
             val problemTxt = Files.readString(inPath).trim()
             val problemAns = Files.readAllLines(problemPath.resolve("$i.ans")).map(String::trim)
-            val receivedAns = block(problemTxt).trim().split("\n").map(String::trim)
+            val receivedAns: MutableList<String> = ArrayList()
+            System.setIn(problemTxt.byteInputStream())
+            val nanosFor = measureNanoTime {
+                block()
+            }
+            receivedAns.addAll(buffer.toString().split("\n").map(String::trim).filter(String::isNotEmpty))
             if(p.checkFunction(problemAns, receivedAns)) {
                 ++passed
             }else {
+                System.setOut(oldSysOut)
                 println("""
                     |============
                     |$istr: FAIL!!! Expected
@@ -50,8 +71,10 @@ object JVMProblemWrapper {
                     |---
                     |$receivedAns
                     |============""".trimMargin())
+                System.setOut(PrintStream(buffer))
             }
         }
+        System.setOut(oldSysOut)
         println("$p: PASS $passed / ${files.size}")
     }
 

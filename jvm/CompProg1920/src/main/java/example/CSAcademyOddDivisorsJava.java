@@ -12,12 +12,12 @@ public class CSAcademyOddDivisorsJava {
         JVMProblemWrapper.loopOver(JVMProblemWrapper.Problem.CSAcademy.OddDivisors, CSAcademyOddDivisorsJava::wrapper);
     }
 
-    private static String wrapper(String input) {
+    private static void wrapper() {
         final ArrayList<Integer> squares = new ArrayList<>();
         for(int i = 0; i < 32; ++i) {
             squares.add(i * i);
         }
-        final Scanner scanner = new Scanner(input);
+        final Scanner scanner = new Scanner(System.in);
         final int lowBound = scanner.nextInt();
         final int highBoundInclusive = scanner.nextInt();
         int countOddDivisors = 0;
@@ -26,6 +26,6 @@ public class CSAcademyOddDivisorsJava {
                 ++countOddDivisors;
             }
         }
-        return Integer.toString(countOddDivisors);
+        System.out.println(countOddDivisors);
     }
 }

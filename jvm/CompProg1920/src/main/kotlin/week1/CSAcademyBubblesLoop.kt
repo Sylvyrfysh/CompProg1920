@@ -10,15 +10,13 @@ object CSAcademyBubblesLoop {
         JVMProblemWrapper.loopOverLambda(JVMProblemWrapper.Problem.CSAcademy.BubblesLoop, CSAcademyBubblesLoop::wrapper)
     }
 
-    private fun wrapper(input: String): String {
-        val dis = BufferedInputStream(input.byteInputStream()).bufferedReader()
+    private fun wrapper() {
+        val dis = System.`in`.bufferedReader()
         dis.readLine().toInt()
         val ins = dis.readLines().chunked(2)
-        val sb = StringBuilder()
         for(q in ins) {
-            sb.append(test(q)).append('\n')
+            println(test(q))
         }
-        return sb.toString().trim()
     }
 
     private fun test(l: List<String>): String {

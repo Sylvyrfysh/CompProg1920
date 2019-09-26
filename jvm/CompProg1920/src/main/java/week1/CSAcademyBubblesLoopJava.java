@@ -1,4 +1,4 @@
-package example;
+package week1;
 
 import npj.JVMProblemWrapper;
 
@@ -14,18 +14,15 @@ public class CSAcademyBubblesLoopJava {
         JVMProblemWrapper.loopOver(JVMProblemWrapper.Problem.CSAcademy.BubblesLoop, CSAcademyBubblesLoopJava::wrapper);
     }
 
-    private static String wrapper(String input) {
-        Scanner in = new Scanner(input);
+    private static void wrapper() {
+        Scanner in = new Scanner(System.in);
         int numTestCases = in.nextInt();
         in.nextLine();
 
-        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < numTestCases; ++i) {
             String testCaseResult = testOneCase(in.nextLine(), in.nextLine());
-            sb.append(testCaseResult).append('\n');
+            System.out.println(testCaseResult);
         }
-
-        return sb.toString();
     }
 
     private static String testOneCase(String firstLine, String secondLine) {
