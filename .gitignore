@@ -5,6 +5,8 @@ resources/
 jvm/CompProg1920/.gradle/
 jvm/CompProg1920/build/
 
+c++/cmake-*
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
