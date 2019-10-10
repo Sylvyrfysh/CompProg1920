@@ -386,7 +386,7 @@ class AddController {
         }
         toRemove.delete()
         testCasesTable.items.remove(toRemove)
-        problemTable.items = FXCollections.observableArrayList(problemTable.items)
+        testCasesTable.items = FXCollections.observableArrayList(testCasesTable.items)
     }
 }
 
