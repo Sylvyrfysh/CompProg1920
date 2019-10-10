@@ -31,7 +31,7 @@ class NCNA(Problem):
     def __init__(self, letter: str, checker):
         super().__init__(checker)
         if len(letter) != 1:
-            raise Exception('%s requires one letter problem names!' % self.__class__.__qualname__)
+            raise NameError('%s requires one letter problem names!' % self.__class__.__qualname__)
         self.letter = letter.capitalize()
         if self.letter.encode()[0] not in range('A'.encode()[0], 'K'.encode()[0]):
             raise NameError('%s only has problems A through J!' % self.__class__.__qualname__)
