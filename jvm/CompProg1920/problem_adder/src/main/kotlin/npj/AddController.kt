@@ -5,7 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
+import javafx.fxml.FXMLLoader
+import javafx.scene.Scene
 import javafx.scene.control.*
+import javafx.scene.layout.VBox
+import javafx.stage.Modality
+import javafx.stage.Stage
 import javafx.util.Callback
 import java.nio.file.Files
 import java.nio.file.Path
@@ -54,6 +59,13 @@ data class Problem(val path: Path) {
         get() {
             return testCaseNames.size
         }
+
+    override fun equals(other: Any?): Boolean {
+        if(other !is Problem) {
+            return false
+        }
+        return name == other.name
+    }
 
     companion object {
         fun createProblem(path: Path, url: String): Problem {
@@ -132,6 +144,7 @@ class AddController {
             SimpleIntegerProperty(it.value.numTestCases).asObject()
         }
 
+        problemTable.items.clear()
         problemTable.items.addAll(Files.list(rootPath).filter { Files.isDirectory(it) }.map{ Problem(it) }.toList())
 
         problemTable.selectionModel.selectionMode = SelectionMode.SINGLE
@@ -167,17 +180,73 @@ class AddController {
         } else {
             path.parent
         }
-        val jPath = Paths.get("jvm", "CompProg1920", "src", "main", "kotlin", "npj", "JVMProblemWrapper.kt")
-        val jFullPath = path.resolve(jPath)
-        val lines = Files.readAllLines(jFullPath).map(String::trim)
-        var insertPoint = lines.indexOf(lines.first { it.startsWith("class CSAcademy") })
-        val nextParts = lines.drop(insertPoint)
-        insertPoint += 1 + nextParts.indexOf(nextParts.first { it.startsWith("companion") })
-        val cObjParts = nextParts.drop(1 + nextParts.indexOf(nextParts.first { it.startsWith("companion") }))
-        val parts = cObjParts.dropLast(cObjParts.size - cObjParts.indexOf(cObjParts.first { it.startsWith("}") })).filter { it.startsWith("val") }
-        parts.forEach(::println)
+        val fxmlLoader = FXMLLoader()
+        fxmlLoader.location = AddController::class.java.classLoader.getResource("Popup.fxml")
+        val stage = Stage()
+        val root = fxmlLoader.load<VBox>()
+        val controller = fxmlLoader.getController<PopupController>()
+        controller.setContFunction { name, url ->
+            stage.close()
+            if(name == null) {
+                return@setContFunction
+            }
+            if(name in Files.list(rootPath).filter { Files.isDirectory(it) }.map{ it.fileName.toString() }.toList()) {
+                val alert = Alert(Alert.AlertType.ERROR)
+                alert.contentText = "A problem with that name already exists!"
+                alert.showAndWait()
+                return@setContFunction
+            }
+            val confirm = Alert(Alert.AlertType.CONFIRMATION)
+            confirm.contentText = "Add problem with name $name?"
+            val res = confirm.showAndWait()
+            if(res.isEmpty) {
+                return@setContFunction
+            }
+            if(res.get() != ButtonType.OK) {
+                return@setContFunction
+            }
+            val jPath = Paths.get("jvm", "CompProg1920", "src", "main", "kotlin", "npj", "JVMProblemWrapper.kt")
+            val jFullPath = path.resolve(jPath)
+            val javaLines = Files.readAllLines(jFullPath).toMutableList()
+            var javaInsertPoint = javaLines.indexOf(javaLines.first { it.trimStart().startsWith("class CSAcademy") })
+            val javaNextParts = javaLines.drop(javaInsertPoint)
+            javaInsertPoint += 1 + javaNextParts.indexOf(javaNextParts.first { it.trimStart().startsWith("companion") })
+            javaLines.add(javaInsertPoint, "                @JvmField")
+            javaLines.add(javaInsertPoint + 1, "                val $name = CSAcademy(\"$name\", \"$url\")")
+            Files.write(jFullPath, javaLines)
 
-        //TODO: Popup
+            val pPath = Paths.get("python", "CompProg1920", "npj", "ProblemSets.py")
+            val pFullPath = path.resolve(pPath)
+            val pyLines = Files.readAllLines(pFullPath).toMutableList()
+            val pyInsertPoint = 1 + pyLines.indexOf(pyLines.first { it.trimStart().startsWith("class CSAcademy:") })
+            pyLines.add(pyInsertPoint, "        ${name.snakeCase()} = CSAcademy('$name',")
+            pyLines.add(pyInsertPoint + 1, "${" ".repeat(name.snakeCase().length)}                     '$url')")
+            Files.write(pFullPath, pyLines)
+
+            val cHPath = Paths.get("c++", "src", "npj", "Problem.h")
+            val cHFullPath = path.resolve(cHPath)
+            val cCPath = Paths.get("c++", "src", "npj", "Problem.cpp")
+            val cCFullPath = path.resolve(cCPath)
+
+            val chLines = Files.readAllLines(cHFullPath).toMutableList()
+            val cHInsertPoint = 2 + chLines.indexOf(chLines.first { it.trimStart().startsWith("class CSAcademy {") })
+            chLines.add(cHInsertPoint, "            static const Problem *$name;")
+            Files.write(cHFullPath, chLines)
+
+            val ccLines = Files.readAllLines(cCFullPath).toMutableList()
+            val cCInsertPoint =
+                1 + ccLines.indexOf(ccLines.first { it.trimStart().startsWith("CREATE_CSACADEMY(OddDivisors)") })
+            ccLines.add(cCInsertPoint, "    CREATE_CSACADEMY($name)")
+            Files.write(cCFullPath, ccLines)
+
+            Files.createDirectory(rootPath.resolve(name))
+            initializeProblemTable()
+            problemTable.selectionModel.select(Problem(rootPath.resolve(name)))
+            onLoadProblem()
+        }
+        stage.scene = Scene(root, root.prefWidth, root.prefHeight)
+        stage.initModality(Modality.APPLICATION_MODAL)
+        stage.show()
     }
 
     @FXML
@@ -319,4 +388,31 @@ class AddController {
         testCasesTable.items.remove(toRemove)
         problemTable.items = FXCollections.observableArrayList(problemTable.items)
     }
+}
+
+private fun String.snakeCase(): String {
+    val ret = StringBuilder()
+
+    var lastLower = false
+
+    for((idx, c) in this.withIndex()) {
+        if(c.isUpperCase()) {
+            if(lastLower) {
+                ret.append('_')
+            } else {
+                if (idx + 1 < this.length && idx != 0) {
+                    if (this[idx + 1].isLowerCase()) {
+                        ret.append('_')
+                    }
+                }
+            }
+            ret.append(c.toLowerCase())
+            lastLower = false
+        } else {
+            ret.append(c)
+            lastLower = true
+        }
+    }
+
+    return ret.toString()
 }
