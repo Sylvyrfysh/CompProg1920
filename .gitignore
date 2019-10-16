@@ -4,6 +4,7 @@ resources/
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 jvm/CompProg1920/.gradle/
 jvm/CompProg1920/build/
+jvm/CompProg1920/problem_adder/build/
 
 c++/cmake-*
 
@@ -109,3 +110,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+!jvm/CompProg1920/problem_adder/src/main/resources/
