@@ -123,6 +123,12 @@ class AddController {
 
     }
 
+    private fun allowTestCaseEntering(allow: Boolean) {
+        caseNameTextField.isDisable = !allow
+        inputTextArea.isDisable = !allow
+        answerTextArea.isDisable = !allow
+    }
+
     private fun initializeCaseTable() {
         testCasesTableCaseName.cellValueFactory = Callback {
             ReadOnlyStringWrapper(it.value.displayName)
@@ -170,6 +176,7 @@ class AddController {
         val tcs = loadedProblem.testCaseNames.map { TestCase(it, loadedProblem) }
 
         testCasesTable.items.addAll(tcs)
+        allowTestCaseEntering(false)
     }
 
     @FXML
@@ -243,6 +250,7 @@ class AddController {
             initializeProblemTable()
             problemTable.selectionModel.select(Problem(rootPath.resolve(name)))
             onLoadProblem()
+            allowTestCaseEntering(false)
         }
         stage.scene = Scene(root, root.prefWidth, root.prefHeight)
         stage.initModality(Modality.APPLICATION_MODAL)
@@ -281,6 +289,7 @@ class AddController {
         loadTestCaseArea("")
         onSaveCaseButton.isDisable = true
         onDeleteCaseButton.isDisable = true
+        allowTestCaseEntering(false)
     }
 
     private fun loadTestCaseArea(tc: TestCase) {
@@ -296,6 +305,7 @@ class AddController {
 
         onSaveCaseButton.isDisable = false
         onDeleteCaseButton.isDisable = false
+        allowTestCaseEntering(true)
     }
 
     @FXML
@@ -358,6 +368,7 @@ class AddController {
         onDeleteCaseButton.isDisable = true
 
         currentEditingTestCase?.let { removeTestCase(it) }
+        allowTestCaseEntering(false)
     }
 
     private var showAlert = true
@@ -387,6 +398,7 @@ class AddController {
         toRemove.delete()
         testCasesTable.items.remove(toRemove)
         testCasesTable.items = FXCollections.observableArrayList(testCasesTable.items)
+        allowTestCaseEntering(false)
     }
 }
 
