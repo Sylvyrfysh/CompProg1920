@@ -120,7 +120,7 @@ class AddController {
 
         initializeProblemTable()
         initializeCaseTable()
-
+        allowTestCaseEntering(false)
     }
 
     private fun allowTestCaseEntering(allow: Boolean) {
