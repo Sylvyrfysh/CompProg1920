@@ -198,14 +198,15 @@ class AddController {
         val stage = Stage()
         val root = fxmlLoader.load<VBox>()
         val controller = fxmlLoader.getController<PopupController>()
-        controller.setContFunction { name, url ->
+        controller.setContFunction { baseName, url ->
             stage.close()
-            if(name == null) {
+            if(baseName == null) {
                 return@setContFunction
             }
+            val name = baseName.replace(Regex("\\s"), "")
             if(name in Files.list(rootPath).filter { Files.isDirectory(it) }.map{ it.fileName.toString() }.toList()) {
                 val alert = Alert(Alert.AlertType.ERROR)
-                alert.contentText = "A problem with that name already exists!"
+                alert.contentText = "A problem with the name '$name' already exists!"
                 alert.showAndWait()
                 return@setContFunction
             }
