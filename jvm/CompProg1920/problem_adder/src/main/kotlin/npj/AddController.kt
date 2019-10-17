@@ -112,11 +112,17 @@ class AddController {
 
     @FXML
     private fun initialize() {
-        rootPath = if(System.getenv("IDE") == "true") {
-            Paths.get("").toAbsolutePath().parent.parent.parent
+        val runningFrom = Paths.get(AddController::class.java.protectionDomain.codeSource.location.toURI())
+            .toAbsolutePath()
+        rootPath = if(!runningFrom.fileName.toString().endsWith("jar")) {
+            Paths.get("").toAbsolutePath().parent.parent.parent //IDE
         } else {
             Paths.get("")
-        }.resolve(Paths.get("resources", "CSAcademy"))
+        }.resolve(Paths.get("resources", "CSAcademy")) //Root, hopefully
+
+        if (!Files.exists(rootPath)) {
+            Files.createDirectories(rootPath)
+        }
 
         initializeProblemTable()
         initializeCaseTable()
