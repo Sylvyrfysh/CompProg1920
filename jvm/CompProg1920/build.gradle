@@ -6,8 +6,6 @@ plugins {
 group 'doesnt.matter'
 version '1'
 
-sourceCompatibility = 1.8
-
 repositories {
     mavenCentral()
 }
