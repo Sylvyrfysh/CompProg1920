@@ -1,4 +1,4 @@
-package npj
+package npj.problemadder
 
 import javafx.beans.property.ReadOnlyStringWrapper
 import javafx.beans.property.SimpleIntegerProperty
@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox
 import javafx.stage.Modality
 import javafx.stage.Stage
 import javafx.util.Callback
+import npj.FXMLUtils
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -67,11 +68,11 @@ data class Problem(val path: Path) {
         return name == other.name
     }
 
-    companion object {
-        fun createProblem(path: Path, url: String): Problem {
-            Files.createDirectories(path)
-            return Problem(path).apply { this.url = url }
-        }
+    override fun hashCode(): Int {
+        var result = path.hashCode()
+        result = 31 * result + (url?.hashCode() ?: 0)
+        result = 31 * result + name.hashCode()
+        return result
     }
 }
 
@@ -193,11 +194,8 @@ class AddController {
         } else {
             path.parent
         }
-        val fxmlLoader = FXMLLoader()
-        fxmlLoader.location = AddController::class.java.classLoader.getResource("Popup.fxml")
+        val (root, controller) = FXMLUtils.getFXMLScene<PopupController>("adder", "Popup")
         val stage = Stage()
-        val root = fxmlLoader.load<VBox>()
-        val controller = fxmlLoader.getController<PopupController>()
         controller.setContFunction { baseName, url ->
             stage.close()
             if(baseName == null) {
@@ -259,7 +257,7 @@ class AddController {
             onLoadProblem()
             allowTestCaseEntering(false)
         }
-        stage.scene = Scene(root, root.prefWidth, root.prefHeight)
+        stage.scene = root
         stage.initModality(Modality.APPLICATION_MODAL)
         stage.show()
     }

@@ -8,11 +8,7 @@ import javafx.stage.Stage
 
 class Main: Application() {
     override fun start(primaryStage: Stage?) {
-        val loader = FXMLLoader()
-        loader.location = Main::class.java.classLoader.getResource("Add.fxml")
-        val root = loader.load<VBox>()
-
-        primaryStage!!.scene = Scene(root, root.prefWidth, root.prefHeight)
+        primaryStage!!.scene = FXMLUtils.getScene("adder", "Add")
         primaryStage.title = "Problem Adder"
         primaryStage.show()
     }
@@ -24,7 +20,7 @@ class Main: Application() {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            Main().launchInternal(args)
+            launch(Main::class.java, *args)
         }
     }
 }
